@@ -49,8 +49,8 @@ input:focus,select:focus{border-color:var(--orange)}
   </div>
 
   <div class="hero">
-    <h1>💰 FAÇA SEU ATENDIMENTO</h1>
-    <p>Preencha seus dados e continue gratuitamente pelo WhatsApp.</p>
+    <h1>💰 FAÇA SUA SIMULAÇÃO</h1>
+    <p>Preencha seus dados e continue seu atendimento pelo WhatsApp.</p>
   </div>
 
   <div class="step" id="step1">
@@ -117,9 +117,10 @@ document.querySelectorAll('.product').forEach(btn=>{
 });
 
 function setAgentByProduct(){
-  if(product === "Microcrédito Itaú"){
+  if(product === "Microcrédito Itaú" || product === "Empréstimo Pessoal"){
     agent="Poliana"; phone="5577988253999";
-    document.getElementById("agentInfo").innerHTML="👩‍💼 <b>Microcrédito:</b> atendimento com Poliana";
+    const tipo = product === "Microcrédito Itaú" ? "Microcrédito" : "Empréstimo Pessoal";
+    document.getElementById("agentInfo").innerHTML=`👩‍💼 <b>${tipo}:</b> atendimento com Poliana`;
   } else {
     agent="Giovana"; phone="5577981273079";
     document.getElementById("agentInfo").innerHTML="👩‍💼 <b>Seu atendimento:</b> será direcionado para Giovana";
