@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RealizeCred | Atendimento Gratuito</title>
+<style>
+:root{--orange:#ff6500;--blue:#073b8f;--dark:#062657;--light:#f7f8fb;--green:#16a34a}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(145deg,#ff6a00 0%,#ff8b22 35%,#f4f7fb 35%,#f4f7fb 100%);color:#10264b}
+.container{max-width:850px;margin:auto;padding:20px}
+.card{background:#fff;border-radius:24px;box-shadow:0 12px 35px #0002;overflow:hidden}
+.header{background:#fff;padding:24px;text-align:center;border-bottom:5px solid var(--orange)}
+.logo{font-size:36px;font-weight:900;letter-spacing:-2px;color:var(--blue)}
+.logo span{color:var(--orange)}
+.subtitle{font-size:18px;font-weight:700;color:#444;margin-top:4px}
+.hero{background:var(--blue);color:#fff;padding:26px;text-align:center}
+.hero h1{font-size:34px;margin:0 0 8px}
+.hero p{font-size:18px;margin:0}
+.step{padding:26px}
+.step h2{color:var(--dark);font-size:24px;margin:0 0 18px}
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.product{border:3px solid #e5e9f1;background:#fff;border-radius:18px;padding:18px;text-align:left;cursor:pointer;min-height:90px;font-size:18px;font-weight:800;color:var(--dark);transition:.15s}
+.product:hover,.product.selected{border-color:var(--orange);background:#fff6ef;transform:translateY(-2px)}
+.icon{font-size:30px;display:block;margin-bottom:6px}
+label{display:block;font-weight:800;margin:14px 0 7px}
+input,select{width:100%;padding:15px;border:2px solid #dce2eb;border-radius:12px;font-size:17px;outline:none}
+input:focus,select:focus{border-color:var(--orange)}
+.btn{width:100%;border:0;border-radius:15px;padding:17px;font-size:19px;font-weight:900;cursor:pointer;margin-top:18px}
+.btn-main{background:var(--orange);color:#fff}
+.btn-green{background:var(--green);color:#fff}
+.summary{background:#f3f7ff;border-left:6px solid var(--blue);padding:18px;border-radius:12px;margin-top:18px;display:none}
+.summary strong{color:var(--blue)}
+.hidden{display:none}
+.small{font-size:13px;color:#666;margin-top:15px;line-height:1.4}
+.agent{display:flex;gap:12px;margin-top:10px}
+.agent button{flex:1;padding:13px;border:2px solid #ddd;border-radius:12px;background:#fff;font-weight:800;cursor:pointer}
+.agent button.active{border-color:var(--green);background:#effcf3}
+.footer{text-align:center;padding:20px;color:#555;font-size:13px}
+@media(max-width:600px){.products{grid-template-columns:1fr}.hero h1{font-size:27px}.logo{font-size:30px}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card">
+  <div class="header">
+    <div class="logo">REALIZE<span>CRED</span></div>
+    <div class="subtitle">Soluções Financeiras</div>
+  </div>
+
+  <div class="hero">
+    <h1>💰 FAÇA SEU ATENDIMENTO</h1>
+    <p>Preencha seus dados e continue gratuitamente pelo WhatsApp.</p>
+  </div>
+
+  <div class="step" id="step1">
+    <h2>1️⃣ Qual produto você procura?</h2>
+    <div class="products">
+      <button class="product" data-product="Empréstimo Consignado INSS"><span class="icon">👴👵</span>Aposentado / Pensionista</button>
+      <button class="product" data-product="BPC / LOAS"><span class="icon">🧑‍🦽</span>BPC / LOAS</button>
+      <button class="product" data-product="Empréstimo Bolsa Família"><span class="icon">👨‍👩‍👧‍👦</span>Bolsa Família</button>
+      <button class="product" data-product="Empréstimo na Conta de Energia"><span class="icon">💡</span>Conta de Energia</button>
+      <button class="product" data-product="Empréstimo no Cartão de Crédito"><span class="icon">💳</span>Cartão de Crédito</button>
+      <button class="product" data-product="Empréstimo Pessoal"><span class="icon">💵</span>Empréstimo Pessoal</button>
+      <button class="product" data-product="FGTS para CLT"><span class="icon">👷‍♂️</span>FGTS + CLT</button>
+      <button class="product" data-product="Microcrédito Itaú"><span class="icon">🏪</span>Microcrédito</button>
+    </div>
+  </div>
+
+  <div class="step hidden" id="step2">
+    <h2>2️⃣ Agora vamos te identificar</h2>
+    <label>Seu CPF</label>
+    <input id="cpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00">
+    <label>Data de nascimento</label>
+    <input id="nascimento" type="text" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA">
+    <label>Seu nome</label>
+    <input id="nome" placeholder="Digite seu nome">
+    <label>Seu WhatsApp</label>
+    <input id="telefone" inputmode="tel" placeholder="(77) 99999-9999">
+    <label>Quanto você gostaria de solicitar? <span style="font-weight:400">(opcional)</span></label>
+    <input id="valor" inputmode="decimal" placeholder="Ex.: R$ 2.000,00">
+    <div id="agentInfo" style="margin-top:18px;background:#fff6ef;border:2px solid #ff6500;border-radius:12px;padding:14px;font-weight:800">
+      Seu atendimento será direcionado automaticamente.
+    </div>
+    <button class="btn btn-main" id="continue">CONTINUAR ➜</button>
+    <button class="btn" style="background:#eef2f8;color:#17345f" id="back">← VOLTAR</button>
+  </div>
+
+  <div class="step hidden" id="step3">
+    <h2>3️⃣ Pronto! Seu atendimento está preparado.</h2>
+    <div class="summary" id="summary"></div>
+    <p style="font-size:17px"><b>Importante:</b> você não precisa esperar uma simulação automática. A atendente vai analisar seu caso e fazer a simulação correta para você.</p>
+    <button class="btn btn-green" id="whatsapp">📲 FALAR NO WHATSAPP AGORA</button>
+    <button class="btn" style="background:#eef2f8;color:#17345f" id="restart">↻ COMEÇAR NOVAMENTE</button>
+  </div>
+
+  <div class="footer">
+    Rua Luiz Viana Filho nº 62, Centro — Cândido Sales - BA<br>
+    Atendimento sujeito à análise de crédito e condições da instituição financeira.<br>
+    Seus dados serão usados para dar continuidade ao atendimento informado nesta página.
+  </div>
+</div>
+</div>
+
+<script>
+let product="", agent="Giovana", phone="5577981273079";
+
+document.querySelectorAll('.product').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.product').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    product=btn.dataset.product;
+    setAgentByProduct();
+    document.getElementById('step2').classList.remove('hidden');
+    document.getElementById('step2').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+function setAgentByProduct(){
+  if(product === "Microcrédito Itaú"){
+    agent="Poliana"; phone="5577988253999";
+    document.getElementById("agentInfo").innerHTML="👩‍💼 <b>Microcrédito:</b> atendimento com Poliana";
+  } else {
+    agent="Giovana"; phone="5577981273079";
+    document.getElementById("agentInfo").innerHTML="👩‍💼 <b>Seu atendimento:</b> será direcionado para Giovana";
+  }
+}
+
+document.getElementById('back').onclick=()=>{
+  document.getElementById('step2').classList.add('hidden');
+  document.getElementById('step1').scrollIntoView({behavior:'smooth'});
+};
+
+document.getElementById('continue').onclick=()=>{
+  const cpf=document.getElementById('cpf').value.trim();
+  const nascimento=document.getElementById('nascimento').value.trim();
+  const nome=document.getElementById('nome').value.trim();
+  const telefone=document.getElementById('telefone').value.trim();
+  const valor=document.getElementById('valor').value.trim();
+  if(!cpf || !nascimento || !nome || !telefone){alert('Preencha CPF, data de nascimento, nome e WhatsApp para continuar.');return;}
+  const resumo = `<b>Produto escolhido:</b> ${product}<br><b>CPF:</b> ${cpf}<br><b>Data de nascimento:</b> ${nascimento}<br><b>Cliente:</b> ${nome}<br><b>WhatsApp:</b> ${telefone}<br><b>Valor desejado:</b> ${valor || 'Ainda não informado'}<br><b>Atendente:</b> ${agent}`;
+  document.getElementById('summary').innerHTML=resumo;
+  document.getElementById('summary').style.display='block';
+  document.getElementById('step3').classList.remove('hidden');
+  document.getElementById('step3').scrollIntoView({behavior:'smooth',block:'start'});
+};
+
+document.getElementById('whatsapp').onclick=()=>{
+  const cpf=document.getElementById('cpf').value.trim();
+  const nascimento=document.getElementById('nascimento').value.trim();
+  const nome=document.getElementById('nome').value.trim();
+  const telefone=document.getElementById('telefone').value.trim();
+  const valor=document.getElementById('valor').value.trim();
+  const msg=`Olá! Vim pelo atendimento da RealizeCred.%0A%0A*Quero atendimento sobre:* ${product}%0A*CPF:* ${cpf}%0A*Data de nascimento:* ${nascimento}%0A*Meu nome:* ${nome}%0A*Meu WhatsApp:* ${telefone}%0A*Valor que desejo:* ${valor || 'Ainda não sei'}%0A%0AQuero fazer uma simulação.`;
+  window.open(`https://wa.me/${phone}?text=${msg}`,'_blank');
+};
+
+document.getElementById('cpf').addEventListener('input', function(){
+  let v=this.value.replace(/\D/g,'').slice(0,11);
+  v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  this.value=v;
+});
+
+document.getElementById('nascimento').addEventListener('input', function(){
+  let v=this.value.replace(/\D/g,'').slice(0,8);
+  v=v.replace(/(\d{2})(\d)/,'$1/$2').replace(/(\d{2})(\d)/,'$1/$2');
+  this.value=v;
+});
+
+document.getElementById('restart').onclick=()=>location.reload();
+</script>
+</body>
+</html>
